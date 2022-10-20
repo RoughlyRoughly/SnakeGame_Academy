@@ -44,10 +44,10 @@ public class HeroManager : MonoBehaviour
     {
         Debug.Log(headHero);
 
-        Debug.Log(CameraManager.i);
+        Debug.Log(/*CameraManager.i*/ CameraManager.Instance);
         headHero = transform.GetChild(0).GetChild(0).GetComponent<HeroMoveController>();
         headHero.SetHead();             //현재 영웅을 머리로 세팅
-        CameraManager.i.SetHeadHero(headHero.transform);            //카메라에 헤드 히어로 연결
+        /*CameraManager.i*/ CameraManager.Instance.SetHeadHero(headHero.transform);            //카메라에 헤드 히어로 연결
 
         //  heroList.Add(headHero);         //리스트에 헤드, 히어로 추가
         //  headHero.Move(Direction.UP);    //영웅 이동
