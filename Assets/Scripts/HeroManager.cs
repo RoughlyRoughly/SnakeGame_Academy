@@ -7,6 +7,7 @@ public class HeroManager : MonoBehaviour
     public static HeroManager i;
 
     [SerializeField] GameObject[] prefabHeroes;     //생성한 영웅들을 담아둘 배열
+
     [SerializeField] float inputRate = 0.2f;        //이동 키입력 딜레이
     float inputTime = 0;
     bool isCanInput = false;
@@ -41,19 +42,30 @@ public class HeroManager : MonoBehaviour
 
     void CreateHead()
     {
+        Debug.Log(headHero);
+
+        Debug.Log(CameraManager.i);
         headHero = transform.GetChild(0).GetChild(0).GetComponent<HeroMoveController>();
         headHero.SetHead();             //현재 영웅을 머리로 세팅
         CameraManager.i.SetHeadHero(headHero.transform);            //카메라에 헤드 히어로 연결
-        heroList.Add(headHero);         //리스트에 헤드, 히어로 추가
-        headHero.Move(Direction.UP);    //영웅 이동
+
+        //  heroList.Add(headHero);         //리스트에 헤드, 히어로 추가
+        //  headHero.Move(Direction.UP);    //영웅 이동
     }
 
     void ChangeDirection(Direction _dir)
     {
         headHero.Move(_dir);        //머리영웅 방향변경
+        Vector2 pos = headHero.transform.position;
 
+        if (heroList.Count > 1)
+        {
+            for(int i = 1; i < heroList.Count; i++)
+            {
+                heroList[i].AddPosDir(pos, _dir);       //머리 영웅의 위치와 방향 각 꼬리 영웅들 리스트에 저장
+            }
+        }
         inputTime = 0;              //키입력 체크 시간 초기화
-
         isCanInput = false;
     }
 

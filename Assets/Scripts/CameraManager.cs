@@ -5,7 +5,7 @@ using UnityEngine;
 public class CameraManager : MonoBehaviour
 {
     public static CameraManager i;
-    Transform headHero;
+    public Transform headHero;
     // Start is called before the first frame update
     void Start()
     {
