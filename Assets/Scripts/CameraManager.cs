@@ -8,7 +8,7 @@ public class CameraManager : MonoBehaviour
 
     // Start is called before the first frame update
 
-    //public static CameraManager i;
+    public static CameraManager i;
 
     //void Start() // 멈춰!
     //{
@@ -20,26 +20,31 @@ public class CameraManager : MonoBehaviour
     //    i = this; // 근데 그럼 다른 스크립트들의 Awake에서 이 스크립트의 Instance를 사용할 땐 Awake에서 받아주는것도 문제일 수 있다.
     //}
 
+    private void Awake()
+    {
+        i = this;
+    }
+
     // 그럼 어케쓰느냐
 
-    private static CameraManager instance = null;
-    public static CameraManager Instance
-    {
-        get
-        {
-            if(instance == null)
-            {
-                instance = FindObjectOfType<CameraManager>();
+    //private static CameraManager instance = null;
+    //public static CameraManager Instance
+    //{
+    //    get
+    //    {
+    //        if(instance == null)
+    //        {
+    //            instance = FindObjectOfType<CameraManager>();
 
-                if (instance == null)
-                {
-                    Debug.LogError("CameraManager의 인스턴스가 없음!");
-                }
-            }
+    //            if (instance == null)
+    //            {
+    //                Debug.LogError("CameraManager의 인스턴스가 없음!");
+    //            }
+    //        }
 
-            return instance;
-        }
-    }
+    //        return instance;
+    //    }
+    //}
 
     // 이렇게 쓴다.
     // proterty라는 C#의 기능을 사용, Instance를 다른 스크립트에서 호출할 때 get부분의 함수가 실행됨

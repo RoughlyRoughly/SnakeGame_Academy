@@ -38,7 +38,6 @@ public class HeroMoveController : MonoBehaviour
 
     void Start()
     {
-        Move(Direction.UP);
         sr = GetComponentInChildren<SpriteRenderer>();
     }
 
@@ -152,7 +151,8 @@ public class HeroMoveController : MonoBehaviour
             sr.sortingOrder = -1 * Mathf.RoundToInt(transform.position.y);      //Mathf.RoundToInt:
                                                                                 //float에 있는 값이 0.5보다 낮으면 0/float에 있는 값이0.5보다 높으면 1이되는 반올림
                                                                                 //영웅들의 이미지를 y축 값에 따라 order 설정. y축 값이 마이너스면 이미지의 order가 더 높다
-            //sr.sortingOrder = (int)(-1f * y);
+            float y = transform.position.y * 10;
+            sr.sortingOrder = (int)(-1f * y);
         }
     }
 }
