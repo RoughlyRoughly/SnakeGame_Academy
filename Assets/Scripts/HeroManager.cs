@@ -19,11 +19,14 @@ public class HeroManager : MonoBehaviour
     public List<HeroMoveController> LIST { get { return heroList; } }
 
     [SerializeField] float offset = 0.8f;       //영웅간의 간격
+    [SerializeField] GameObject hpBarPrefab;    //Hp바 프리펩 게임 오브젝트
+    Transform hpTrans;                          //생성한 hp바 담아둘 부모 오브젝트
 
     // Start is called before the first frame update
     void Start()
     {
         i = this;
+        if(hpBarPrefab != null) hpTrans = GameObject.Find("HeroHpBars").transform;
         CreateHead();
     }
 
@@ -53,6 +56,8 @@ public class HeroManager : MonoBehaviour
 
         heroList.Add(headHero);         //리스트에 헤드, 히어로 추가
         headHero.Move(Direction.UP);    //영웅 이동
+
+        CreaterHpBar(headHero.GetComponentInChildren<HeroComponent>()); //hp바 생성
     }
 
     void ChangeDirection(Direction _dir)
@@ -122,7 +127,15 @@ public class HeroManager : MonoBehaviour
             //앞 영웅의 posDir 리스트의 데이터를 생성한 영웅 리스트에도 추가해줌  
         }
 
+        CreaterHpBar(hero.GetComponentInChildren<HeroComponent>()); //hp바 생성
+
         hero.Move(preHero.dir);         //생성한 영웅 이동
         heroList.Add(hero);             //생성한 영웅 리스트에 추가
+    }
+
+    void CreaterHpBar(HeroComponent hc)
+    {
+        GameObject _bar = Instantiate(hpBarPrefab, hpTrans);
+        hc.HeroInit(_bar);
     }
 }
